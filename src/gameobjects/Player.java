@@ -6,7 +6,7 @@ public class Player implements Collidable {
 
     private Picture picture;
 
-    private final int SPEED = 5;
+    private final int SPEED = 30;
 
 
     private int spiriteNumb=1;
@@ -27,6 +27,9 @@ public class Player implements Collidable {
 
 
     public void moveUp(){
+        if(picture.getY()<=10){
+            return;
+        }
 
         picture.translate(0, -SPEED);
 
@@ -53,6 +56,9 @@ public class Player implements Collidable {
     }
 
     public void moveLeft(){
+        if(picture.getX()<=10){
+            return;
+        }
         picture.translate(-SPEED,0);
         if(spiriteNumb==1) {
             picture.load("resources/walkLeft.png");
@@ -78,6 +84,9 @@ public class Player implements Collidable {
     }
 
     public void moveDown(){
+        if(picture.getY()>=580){
+            return;
+        }
         picture.translate(0,SPEED);
         if(spiriteNumb==1) {
             picture.load("resources/StandStill.png");
@@ -103,6 +112,10 @@ public class Player implements Collidable {
     }
 
     public void moveRight(){
+
+        if(picture.getX()>=580){
+            return;
+        }
         picture.translate(SPEED,0);
         if(spiriteNumb==1) {
             picture.load("resources/walkRight.png");
