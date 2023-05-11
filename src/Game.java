@@ -41,7 +41,7 @@ public class Game {
         }
         treeNumb = trees.length;
 
-        player = new Player(PADDING + ((int) (Math.random()*cellQty))*cellSize, PADDING + ((int) (Math.random()*cellQty))*cellSize, PREFIX + "archer-1.png");
+        player = new Player(PADDING + ((int) (Math.random()*cellQty))*cellSize, PADDING + ((int) (Math.random()*cellQty))*cellSize, PREFIX + "StandStill.png");
 
         MyKeyboard keyboard = new MyKeyboard();
         keyboard.init();

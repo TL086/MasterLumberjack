@@ -9,16 +9,15 @@ import java.security.Key;
 public class MyKeyboard implements KeyboardHandler {
 
 
-
     public Keyboard keyboard;
     public Player player;
 
 
-    public void setPlayer(Player player){
+    public void setPlayer(Player player) {
         this.player = player;
     }
 
-    public void init(){
+    public void init() {
 
         keyboard = new Keyboard(this);
 
@@ -37,15 +36,21 @@ public class MyKeyboard implements KeyboardHandler {
             event.setKey(keys[i]);
             keyboard.addEventListener(event);
         }
+        for (int i = 0; i < keys.length; i++) {
+            KeyboardEvent event = new KeyboardEvent();
+            event.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
+            event.setKey(keys[i]);
+            keyboard.addEventListener(event);
+        }
     }
 
 
     public void keyPressed(KeyboardEvent keyboardEvent) {
 
 
-        switch (keyboardEvent.getKey()){
+        switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_SPACE:
-                System.out.println("space was pressed");
+                player.cutTree();
                 break;
             case KeyboardEvent.KEY_LEFT:
                 player.moveLeft();
@@ -62,10 +67,15 @@ public class MyKeyboard implements KeyboardHandler {
         }
 
 
-
     }
 
     public void keyReleased(KeyboardEvent keyboardEvent) {
 
+        switch (keyboardEvent.getKey()) {
+            case KeyboardEvent.KEY_SPACE:
+                player.cutTree();
+                break;
+
+        }
     }
 }
