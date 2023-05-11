@@ -1,4 +1,4 @@
-package gameObjects;
+package gameobjects;
 
 public interface Collidable {
 
@@ -9,4 +9,7 @@ public interface Collidable {
     int getWidth();
 
     int getHeight();
+
+
+
 }

@@ -1,41 +1,53 @@
-import Utils.CollisionDetector;
-import Utils.MyKeyboard;
-import gameObjects.Player;
-import gameObjects.Square;
+import gameobjects.*;
 import org.academiadecodigo.simplegraphics.graphics.Text;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
+import utils.CollisionDetector;
+import utils.MyKeyboard;
 
 public class Game {
 
 
+
     private static final String PREFIX = "resources/";
     private final int delay;
+    private static int PADDING = 10;
+    private static int cellSize = 30;
+    private static int cellQty = 20;
 
     private Player player;
-
-    private Square[] squares;
-
-    private int score = 0 ;
-
+    //private Square square;
+    private Tree[] trees;
+    private int treeNumb;
     private Text text;
+    private Picture picture;
 
-    public Game(int delay, int numOfSquares){
+
+
+    private int score = 0;
+
+
+    public Game(int delay, int numOfSquares) {
         this.delay = delay;
-        squares = new Square[numOfSquares];
-            }
+        trees = new Tree[numOfSquares];
+    }
 
     public void init(){
 
+        Picture picture = new Picture(PADDING, PADDING, PREFIX + "Grass1.png");
+        picture.draw();
 
-        player = new Player(10,10,PREFIX + "sonic3.png");
+        for (int i = 0; i < trees.length; i++) {
+            trees[i] = new Tree(PADDING + ((int) (Math.random()*cellQty))*cellSize,PADDING + ((int) (Math.random()*cellQty))*cellSize, PREFIX + "Tree.png");
+        }
+        treeNumb = trees.length;
 
-        for (int i = 0; i <squares.length ; i++) {
-            squares[i] = new Square(100 * i ,150 , 20);
-                   }
+        player = new Player(PADDING + ((int) (Math.random()*cellQty))*cellSize, PADDING + ((int) (Math.random()*cellQty))*cellSize, PREFIX + "archer-1.png");
 
-        MyKeyboard myKeyboard = new MyKeyboard();
-        myKeyboard.init();
-        myKeyboard.setPlayer(player);
-        text = new Text(10,10, "Score: " + score);
+        MyKeyboard keyboard = new MyKeyboard();
+        keyboard.init();
+        keyboard.setPlayer(player);
+
+        text = new Text(10, 2*PADDING + cellQty * cellSize, "Score: " + score);
         text.draw();
 
     }
@@ -43,33 +55,40 @@ public class Game {
 
     public void start() throws InterruptedException{
 
-        while(true){
+        while (treeNumb>0){
 
             Thread.sleep(delay);
 
 
-            for (int i = 0; i <squares.length ; i++) {
+            for (int i = 0; i < trees.length; i++) {
 
-                if(squares[i]==null){
+                if(trees[i] == null){
                     continue;
                 }
 
-                if(CollisionDetector.hasCollided(player, squares[i])){
-
-                    squares[i].removeSquare();
-                    squares[i]=null;
-                    score+= 100;
-                    text.setText("Score:" + score);
-
+                if(CollisionDetector.hasCollided(player, trees[i])){
+                    System.out.println("COLLISION");
+                    trees[i].cutTree();
+                    trees[i] = null;
+                    treeNumb--;
+                    score += 10;
+                    text.setText("Score: " + score);
+                    //player gets some points
                 }
-            }
 
             }
+
+
+
+
+
+
+
+
+        }
+
+        text.setText("YOU WIN!!!!!!!!!! " + score + " points");
 
     }
-
-
-
-
 
 }
