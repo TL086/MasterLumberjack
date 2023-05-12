@@ -66,7 +66,7 @@ public class Game {
                     continue;
                 }
 
-                if(CollisionDetector.hasCollided(player, trees[i])){
+                /*if(CollisionDetector.hasCollided(player, trees[i]) ){
                     System.out.println("COLLISION");
                     trees[i].cutTree();
                     trees[i] = null;
@@ -74,7 +74,24 @@ public class Game {
                     score += 10;
                     text.setText("Score: " + score);
                     //player gets some points
+                }*/
+
+
+
+                if(CollisionDetector.elementIsUp(player, trees[i])){
+                    player.setabletoMoveUp(false);
                 }
+                if(CollisionDetector.elementIsDown(player, trees[i])){
+                    player.setabletoMoveDown(false);
+                }
+                if(CollisionDetector.elementIsLeft(player, trees[i])){
+                    player.setabletoMoveLeft(false);
+                }
+                if(CollisionDetector.elementIsRight(player, trees[i])){
+                    player.setabletoMoveRight(false);
+                }
+
+
 
             }
 

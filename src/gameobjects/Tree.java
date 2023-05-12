@@ -1,7 +1,5 @@
 package gameobjects;
 
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 
@@ -14,6 +12,8 @@ public class Tree implements Collidable{
         picture = new Picture(x, y, resource);
         picture.draw();
     }
+
+    public Tree getTree () { return this;}
 
     public void cutTree(){
         picture.delete();
