@@ -5,17 +5,11 @@ public class Main {
 
 
 
-
-        Game game = new Game(35, 200);
+        Game game = new Game(15, 200, 30);
 
 
         game.init();
         game.start();
-
-
-
-
-
 
 
     }

@@ -1,23 +1,16 @@
 package gameobjects;
 
+import org.academiadecodigo.simplegraphics.graphics.*;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 
-public class Tree implements Collidable{
+public class Stone implements Collidable{
 
     private Picture picture;
 
-
-    public Tree(int x, int y, String resource) {
+    public Stone(int x, int y, String resource){
         picture = new Picture(x, y, resource);
         picture.draw();
-    }
-
-    public Tree getTree () { return this;}
-
-    public void cutTree(){
-        picture.delete();
-
     }
 
 

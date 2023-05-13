@@ -1,6 +1,7 @@
 package gameobjects;
 
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+import utils.CollisionDetector;
 
 public class Player implements Collidable {
 
@@ -14,7 +15,12 @@ public class Player implements Collidable {
     private int spiriteCut=1;
 
     private String lastmove;
-
+    private Tree tree;
+    private boolean abletoMoveUp = true;
+    private boolean abletoMoveDown = true;
+    private boolean abletoMoveLeft = true;
+    private boolean abletoMoveRight = true;
+    private int cut = 0;
 
 
     public Player(int x,int y, String resource){
@@ -23,15 +29,7 @@ public class Player implements Collidable {
     }
 
 
-
-
-
     public void moveUp(){
-        if(picture.getY()<=10){
-            return;
-        }
-
-        picture.translate(0, -SPEED);
 
         if(spiriteNumb==1) {
             picture.load("resources/walkUp.png");
@@ -51,15 +49,24 @@ public class Player implements Collidable {
             picture.load("resources/walkUp2.png");
             spiriteNumb=1;
             lastmove = "up";
-
         }
+
+        if (!abletoMoveUp){
+            allowAllMoves();
+            return;
+        }
+
+        if(picture.getY()<=10){
+            return;
+        }
+
+        picture.translate(0, -SPEED);
+        resetCut();
+
     }
 
     public void moveLeft(){
-        if(picture.getX()<=10){
-            return;
-        }
-        picture.translate(-SPEED,0);
+
         if(spiriteNumb==1) {
             picture.load("resources/walkLeft.png");
             spiriteNumb++;
@@ -73,21 +80,28 @@ public class Player implements Collidable {
             picture.load("resources/walkLeft.png");
             spiriteNumb++;
             lastmove = "left";
-
         }else {
             picture.load("resources/walkLeft2.png");
             spiriteNumb=1;
             lastmove = "left";
-
         }
+
+        if (!abletoMoveLeft){
+            allowAllMoves();
+            return;
+        }
+
+        if(picture.getX()<=10){
+            return;
+        }
+        picture.translate(-SPEED,0);
+        resetCut();
+
 
     }
 
     public void moveDown(){
-        if(picture.getY()>=580){
-            return;
-        }
-        picture.translate(0,SPEED);
+
         if(spiriteNumb==1) {
             picture.load("resources/StandStill.png");
             spiriteNumb++;
@@ -107,16 +121,24 @@ public class Player implements Collidable {
             picture.load("resources/walkDown2.png");
             spiriteNumb=1;
             lastmove = "down";
-
         }
+
+        if (!abletoMoveDown){
+            allowAllMoves();
+            return;
+        }
+
+        if(picture.getY()>=580){
+            return;
+        }
+
+        picture.translate(0,SPEED);
+        resetCut();
+
     }
 
     public void moveRight(){
 
-        if(picture.getX()>=580){
-            return;
-        }
-        picture.translate(SPEED,0);
         if(spiriteNumb==1) {
             picture.load("resources/walkRight.png");
             spiriteNumb++;
@@ -135,11 +157,25 @@ public class Player implements Collidable {
             spiriteNumb=1;
             lastmove = "right";
         }
+
+        if (!abletoMoveRight){
+            allowAllMoves();
+            return;
+        }
+
+        if(picture.getX()>=580){
+            return;
+        }
+
+        picture.translate(SPEED,0);
+        resetCut();
+
     }
 
 
 
-    public void cutTree(){
+    public void axlStroke(){
+        incCut();
         switch (lastmove) {
             case "right":
                 if (spiriteCut == 1) {
@@ -181,8 +217,40 @@ public class Player implements Collidable {
     }
 
 
-    public void stopMoving(){
 
+    public int getCut (){
+        return cut;
+    }
+    public void setCut (int cut){
+        this.cut = cut;
+    }
+    public void incCut (){
+        cut++;
+    }
+    public void resetCut (){
+        cut = 0;
+    }
+
+
+
+    public void setabletoMoveUp(boolean check){
+        abletoMoveUp = check;
+    }
+    public void setabletoMoveDown(boolean check){
+        abletoMoveDown = check;
+    }
+    public void setabletoMoveLeft(boolean check){
+        abletoMoveLeft = check;
+    }
+    public void setabletoMoveRight(boolean check){
+        abletoMoveRight = check;
+    }
+
+    public void allowAllMoves(){
+        abletoMoveUp = true;
+        abletoMoveDown = true;
+        abletoMoveLeft = true;
+        abletoMoveRight = true;
     }
 
 
