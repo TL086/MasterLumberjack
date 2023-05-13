@@ -7,19 +7,10 @@ public class Wolf implements Collidable{
     private Picture picture;
 
 
-
     public Wolf(int x,int y, String resource){
         picture = new Picture(x, y,resource);
         picture.draw();
     }
-
-
-
-
-
-
-
-
 
 
     public int getX() {

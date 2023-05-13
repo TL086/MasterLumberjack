@@ -6,8 +6,6 @@ import utils.MyKeyboard;
 
 public class Game {
 
-
-
     private static final String PREFIX = "resources/";
     private final int delay;
     private static int PADDING = 10;
@@ -21,8 +19,6 @@ public class Game {
     private int treeNumb;
     private Text text;
     private Picture picture;
-
-
 
     private int score = 0;
 
@@ -55,6 +51,7 @@ public class Game {
         }*/
 
 
+        //Generate player
         player = new Player(PADDING + ((int) (Math.random()*cellQty))*cellSize, PADDING + ((int) (Math.random()*cellQty))*cellSize, PREFIX + "StandStill.png");
 
         MyKeyboard keyboard = new MyKeyboard();
@@ -73,24 +70,11 @@ public class Game {
 
             Thread.sleep(delay);
 
-
             for (int i = 0; i < trees.length; i++) {
 
                 if(trees[i] == null){
                     continue;
                 }
-
-                /*if(CollisionDetector.hasCollided(player, trees[i]) ){
-                    System.out.println("COLLISION");
-                    trees[i].cutTree();
-                    trees[i] = null;
-                    treeNumb--;
-                    score += 10;
-                    text.setText("Score: " + score);
-                    //player gets some points
-                }*/
-
-
 
                 if(CollisionDetector.elementIsUp(player, trees[i])){
                     player.setabletoMoveUp(false);
@@ -132,39 +116,11 @@ public class Game {
                     }
                 }
 
-
-                /*if(CollisionDetector.hasCollided(player, trees[i]) ){
-                    System.out.println("COLLISION");
-                    trees[i].cutTree();
-                    trees[i] = null;
-                    treeNumb--;
-                    score += 10;
-                    text.setText("Score: " + score);
-                    //player gets some points
-                }*/
-
-
-
-
-
-
-
             }
-
-
-
-
-
-
-
-
         }
-
         text.setText("YOU WIN!!!!!!!!!! " + score + " points");
 
     }
-
-
 
     public void cutTree(int i){
         trees[i].cutTree();
@@ -172,8 +128,6 @@ public class Game {
         treeNumb--;
         score += 10;
         text.setText("Score: " + score);
-
-
     }
 
 }

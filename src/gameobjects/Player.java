@@ -29,9 +29,6 @@ public class Player implements Collidable {
     }
 
 
-
-
-
     public void moveUp(){
 
         if(spiriteNumb==1) {
@@ -219,13 +216,6 @@ public class Player implements Collidable {
         }
     }
 
-
-
-
-    public void cutTree (){
-
-
-    }
 
 
     public int getCut (){
