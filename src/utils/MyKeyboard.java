@@ -50,7 +50,7 @@ public class MyKeyboard implements KeyboardHandler {
 
         switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_SPACE:
-                player.cutTree();
+                player.axlStroke();
                 break;
             case KeyboardEvent.KEY_LEFT:
                 player.moveLeft();
@@ -73,7 +73,8 @@ public class MyKeyboard implements KeyboardHandler {
 
         switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_SPACE:
-                player.cutTree();
+                player.axlStroke();
+
                 break;
 
         }

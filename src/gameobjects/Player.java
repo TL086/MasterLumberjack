@@ -20,7 +20,7 @@ public class Player implements Collidable {
     private boolean abletoMoveDown = true;
     private boolean abletoMoveLeft = true;
     private boolean abletoMoveRight = true;
-    private boolean abletoMove = true;
+    private int cut = 0;
 
 
     public Player(int x,int y, String resource){
@@ -33,8 +33,6 @@ public class Player implements Collidable {
 
 
     public void moveUp(){
-
-
 
         if(spiriteNumb==1) {
             picture.load("resources/walkUp.png");
@@ -66,6 +64,7 @@ public class Player implements Collidable {
         }
 
         picture.translate(0, -SPEED);
+        resetCut();
 
     }
 
@@ -84,12 +83,10 @@ public class Player implements Collidable {
             picture.load("resources/walkLeft.png");
             spiriteNumb++;
             lastmove = "left";
-
         }else {
             picture.load("resources/walkLeft2.png");
             spiriteNumb=1;
             lastmove = "left";
-
         }
 
         if (!abletoMoveLeft){
@@ -101,6 +98,7 @@ public class Player implements Collidable {
             return;
         }
         picture.translate(-SPEED,0);
+        resetCut();
 
 
     }
@@ -138,6 +136,7 @@ public class Player implements Collidable {
         }
 
         picture.translate(0,SPEED);
+        resetCut();
 
     }
 
@@ -172,12 +171,14 @@ public class Player implements Collidable {
         }
 
         picture.translate(SPEED,0);
+        resetCut();
 
     }
 
 
 
-    public void cutTree(){
+    public void axlStroke(){
+        incCut();
         switch (lastmove) {
             case "right":
                 if (spiriteCut == 1) {
@@ -220,6 +221,25 @@ public class Player implements Collidable {
 
 
 
+
+    public void cutTree (){
+
+
+    }
+
+
+    public int getCut (){
+        return cut;
+    }
+    public void setCut (int cut){
+        this.cut = cut;
+    }
+    public void incCut (){
+        cut++;
+    }
+    public void resetCut (){
+        cut = 0;
+    }
 
 
 

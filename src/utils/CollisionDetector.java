@@ -2,8 +2,6 @@ package utils;
 
 import gameobjects.Collidable;
 import gameobjects.Player;
-import gameobjects.Square;
-import gameobjects.Tree;
 
 public class CollisionDetector {
 
