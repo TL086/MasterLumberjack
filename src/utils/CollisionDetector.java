@@ -1,7 +1,7 @@
 package utils;
 
 import gameobjects.Collidable;
-import gameobjects.Player;
+
 
 public class CollisionDetector {
 
