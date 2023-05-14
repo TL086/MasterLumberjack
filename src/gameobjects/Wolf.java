@@ -1,7 +1,7 @@
 package gameobjects;
 
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-import utils.CollisionDetector;
+
 
 public class Wolf implements Collidable, Movable {
 
@@ -12,6 +12,8 @@ public class Wolf implements Collidable, Movable {
     private boolean abletoMoveDown = true;
     private boolean abletoMoveLeft = true;
     private boolean abletoMoveRight = true;
+    //private Random random;
+
 
 
     public Wolf(int x,int y, String resource){
@@ -22,62 +24,44 @@ public class Wolf implements Collidable, Movable {
 
 
 
-
-
-
-
-
-
+    @Override
     public int getX() {
-        return 0;
+        return picture.getX();
     }
 
+    @Override
     public int getY() {
-        return 0;
+        return picture.getY();
     }
 
+    @Override
     public int getWidth() {
-        return 0;
+        return picture.getWidth();
     }
 
+    @Override
     public int getHeight() {
-        return 0;
+        return picture.getHeight();
     }
 
 
 
-    public void move() throws InterruptedException {
 
-        while (abletoMoveUp){
-            Thread.sleep(200);
-            moveUp();
-        }
-        while (abletoMoveRight){
-            Thread.sleep(200);
 
-            moveRight();
-        }
-        while (abletoMoveDown){
-            Thread.sleep(200);
-            moveDown();
-        }
-        while (abletoMoveLeft){
-            Thread.sleep(200);
-            moveLeft();
-        }
 
-    }
+
 
 
 
     public void moveUp() {
 
-        if (abletoMoveUp){
+        if (!abletoMoveUp){
             allowAllMoves();
             return;
         }
 
         if(picture.getY()<=10){
+
             return;
         }
 
@@ -87,12 +71,13 @@ public class Wolf implements Collidable, Movable {
 
     public void moveLeft() {
 
-        if (abletoMoveLeft){
+        if (!abletoMoveLeft){
             allowAllMoves();
             return;
         }
 
         if(picture.getX()<=10){
+
             return;
         }
         picture.translate(-SPEED,0);
@@ -102,12 +87,13 @@ public class Wolf implements Collidable, Movable {
 
     public void moveDown() {
 
-        if (abletoMoveDown){
+        if (!abletoMoveDown){
             allowAllMoves();
             return;
         }
 
         if(picture.getY()>=570){
+
             return;
         }
 
@@ -117,12 +103,13 @@ public class Wolf implements Collidable, Movable {
 
     public void moveRight() {
 
-        if (abletoMoveRight){
+        if (!abletoMoveRight){
             allowAllMoves();
             return;
         }
 
         if(picture.getX()>=870){
+
             return;
         }
 
@@ -149,6 +136,29 @@ public class Wolf implements Collidable, Movable {
         abletoMoveDown = true;
         abletoMoveLeft = true;
         abletoMoveRight = true;
+    }
+
+    public void move() throws InterruptedException {
+
+        int direction = (int) (Math.random() * 4);
+
+
+        switch (direction) {
+            case 0:
+                moveUp();
+                break;
+            case 1:
+                moveDown();
+                break;
+            case 2:
+                moveLeft();
+                break;
+            case 3:
+                moveRight();
+                break;
+            default:
+                break;
+        }
     }
 
 

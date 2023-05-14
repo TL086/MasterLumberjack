@@ -1,7 +1,7 @@
 package gameobjects;
 
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-import utils.CollisionDetector;
+
 
 public class Player implements Collidable, Movable{
 
@@ -15,7 +15,6 @@ public class Player implements Collidable, Movable{
     private int spiriteCut=1;
 
     private String lastmove = "down";
-    private Tree tree;
     private boolean abletoMoveUp = true;
     private boolean abletoMoveDown = true;
     private boolean abletoMoveLeft = true;
@@ -45,6 +44,8 @@ public class Player implements Collidable, Movable{
             spiriteNumb=1;
         }
 
+        lastmove = "up";
+
         if (!abletoMoveUp){
             allowAllMoves();
             return;
@@ -55,7 +56,7 @@ public class Player implements Collidable, Movable{
         }
 
         picture.translate(0, -SPEED);
-        lastmove = "up";
+
         resetCut();
 
     }
@@ -76,6 +77,8 @@ public class Player implements Collidable, Movable{
             spiriteNumb=1;
         }
 
+        lastmove = "left";
+
         if(!abletoMoveLeft){
             allowAllMoves();
             return;
@@ -85,7 +88,7 @@ public class Player implements Collidable, Movable{
             return;
         }
         picture.translate(-SPEED,0);
-        lastmove = "left";
+
         resetCut();
 
 
@@ -107,6 +110,8 @@ public class Player implements Collidable, Movable{
             spiriteNumb=1;
         }
 
+        lastmove = "down";
+
         if(!abletoMoveDown){
             allowAllMoves();
             return;
@@ -117,7 +122,7 @@ public class Player implements Collidable, Movable{
         }
 
         picture.translate(0,SPEED);
-        lastmove = "down";
+
         resetCut();
 
     }
@@ -138,6 +143,8 @@ public class Player implements Collidable, Movable{
             spiriteNumb=1;
         }
 
+        lastmove = "right";
+
         if(!abletoMoveRight){
             allowAllMoves();
             return;
@@ -148,7 +155,7 @@ public class Player implements Collidable, Movable{
         }
 
         picture.translate(SPEED,0);
-        lastmove = "right";
+
         resetCut();
     }
 
@@ -156,8 +163,8 @@ public class Player implements Collidable, Movable{
 
     public void axlStroke(){
 
-
         incCut();
+
         switch (lastmove) {
             case "right":
                 if (spiriteCut == 1) {
@@ -168,6 +175,7 @@ public class Player implements Collidable, Movable{
                     spiriteCut--;
                 }
                 break;
+
             case "down":
                 if (spiriteCut == 1) {
                     picture.load("resources/Downcut1.png");
@@ -177,6 +185,7 @@ public class Player implements Collidable, Movable{
                     spiriteCut--;
                 }
                 break;
+
             case "up":
                 if (spiriteCut == 1) {
                     picture.load("resources/Upcut1.png");
@@ -186,6 +195,7 @@ public class Player implements Collidable, Movable{
                     spiriteCut--;
                 }
                 break;
+
             case "left":
                 if (spiriteCut == 1) {
                     picture.load("resources/Leftcut1.png");
@@ -195,7 +205,8 @@ public class Player implements Collidable, Movable{
                     spiriteCut--;
                 }
                 break;
-            default: break;
+
+
         }
     }
 
@@ -213,6 +224,8 @@ public class Player implements Collidable, Movable{
     public void resetCut (){
         cut = 0;
     }
+
+
 
 
 

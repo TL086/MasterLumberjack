@@ -13,9 +13,7 @@ public class MyKeyboard implements KeyboardHandler {
 
     public Keyboard keyboard;
     public Player player;
-    public Player player1;
-    public static boolean startON=false;
-
+    public static boolean start = false;
 
 
 
@@ -23,11 +21,14 @@ public class MyKeyboard implements KeyboardHandler {
         this.player = player;
     }
 
+
+
     public void init() {
 
         keyboard = new Keyboard(this);
 
         int[] keys = {
+                KeyboardEvent.KEY_ENTER,
                 KeyboardEvent.KEY_SPACE,
                 KeyboardEvent.KEY_LEFT,
                 KeyboardEvent.KEY_RIGHT,
@@ -50,15 +51,35 @@ public class MyKeyboard implements KeyboardHandler {
         }
     }
 
+    public void init2() {
+
+        keyboard = new Keyboard(this);
+
+        int key =  KeyboardEvent.KEY_ENTER;
+
+
+            KeyboardEvent event1 = new KeyboardEvent();
+
+            event1.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+            event1.setKey(key);
+            keyboard.addEventListener(event1);
+
+            event1.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
+            event1.setKey(key);
+            keyboard.addEventListener(event1);
+
+    }
+
+
+
 
     public void keyPressed(KeyboardEvent keyboardEvent) {
 
-
         switch (keyboardEvent.getKey()) {
-
+            case KeyboardEvent.KEY_ENTER:
+                start = true;
+                break;
             case KeyboardEvent.KEY_SPACE:
-                setStartOn();
-
                 player.axlStroke();
                 break;
             case KeyboardEvent.KEY_LEFT:
@@ -83,16 +104,19 @@ public class MyKeyboard implements KeyboardHandler {
         switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_SPACE:
                 player.axlStroke();
-
+                break;
+            case KeyboardEvent.KEY_ENTER:
+                start = false;
                 break;
 
         }
     }
 
 
-    public void setStartOn() {
-        startON = true;
-    }
+
+
+
+
 
 
 

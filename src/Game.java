@@ -1,6 +1,5 @@
 import gameobjects.*;
 import org.academiadecodigo.simplegraphics.graphics.Text;
-import org.academiadecodigo.simplegraphics.keyboard.*;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import utils.*;
 
@@ -13,8 +12,7 @@ public class Game{
     private static int cellSize = 30;
     private static int cellQtyX = 30;
     private static int cellQtyY = 20;
-    private static int gridSizeX = cellSize * cellQtyX;
-    private static int SPEED;
+
 
 
     private Player player;
@@ -23,38 +21,35 @@ public class Game{
     private Wolf[] wolfes;
     private int treeNumb;
     private Text text;
-    private boolean startKey = false;
+    private Text text1;
+    private boolean killedInAction;
+    private int score ;
 
-    private int score = 0;
 
-
-    public Game(int delay, int numOfTrees, int numOfStones, int numOfwolfes, int SPEED) {
+    public Game(int delay, int numOfTrees, int numOfStones, int numOfwolfes) {
         this.delay = delay;
         trees = new Tree[numOfTrees];
         stones = new Stone[numOfStones];
         wolfes = new Wolf[numOfwolfes];
-        this.SPEED = SPEED;
+        killedInAction = false;
+        score = 0;
     }
 
 
 
 
-/*
-    public void firstScreen(){
 
-        Picture picture = new Picture(PADDING , PADDING , PREFIX + "lumberjack.png");
-        picture.draw();
+    public void init() throws InterruptedException {
+
+        Picture picture1 = new Picture(PADDING , PADDING , PREFIX + "lumberjack-start.png");
+        picture1.draw();
+
         MyKeyboard keyboard = new MyKeyboard();
         keyboard.init();
 
-        while (!MyKeyboard.startON){}
-
-
-    }*/
-
-
-    public void init(){
-
+        while (!MyKeyboard.start){
+            Thread.sleep(10);
+        }
 
         Picture picture = new Picture(PADDING , PADDING , PREFIX + "Grass1.png");
         picture.draw();
@@ -75,12 +70,10 @@ public class Game{
             wolfes[i] = new Wolf(PADDING + ((int) (Math.random()*cellQtyX))*cellSize,PADDING + ((int) (Math.random()*cellQtyY))*cellSize, PREFIX + "Wolf.png");
         }
 
-
         //Generate player
         player = new Player(PADDING + ((int) (Math.random()*cellQtyX))*cellSize, PADDING + ((int) (Math.random()*cellQtyY))*cellSize, PREFIX + "StandStill.png");
 
-        MyKeyboard keyboard = new MyKeyboard();
-        keyboard.init();
+
         keyboard.setPlayer(player);
 
         text = new Text(2 * PADDING , 2 * PADDING + cellQtyY * cellSize, "Score: " + score);
@@ -90,18 +83,12 @@ public class Game{
 
 
 
-
-
     public void start() throws InterruptedException{
 
-        while (treeNumb>0){
-            
-            
-            //moveAllWolfes();
+        while (treeNumb > 0 && !killedInAction){
 
             Thread.sleep(delay);
-
-
+            moveAllWolfes();
 
             for (int i = 0; i < trees.length; i++) {
 
@@ -111,7 +98,7 @@ public class Game{
 
                 if(CollisionDetector.elementIsUp(player, trees[i])){
                     player.setabletoMoveUp(false);
-                    if (player.getCut()==4){
+                    if (player.getCut() != 0){
                         cutTree(i);
                     }
                 }
@@ -122,7 +109,7 @@ public class Game{
 
                 if(CollisionDetector.elementIsDown(player, trees[i])){
                     player.setabletoMoveDown(false);
-                    if (player.getCut() == 4){
+                    if (player.getCut() != 0){
                         cutTree(i);
                     }
                 }
@@ -133,7 +120,7 @@ public class Game{
 
                 if(CollisionDetector.elementIsLeft(player, trees[i])){
                     player.setabletoMoveLeft(false);
-                    if (player.getCut() == 4){
+                    if (player.getCut() != 0){
                         cutTree(i);
                     }
                 }
@@ -144,7 +131,7 @@ public class Game{
 
                 if(CollisionDetector.elementIsRight(player, trees[i])){
                     player.setabletoMoveRight(false);
-                    if (player.getCut() == 4){
+                    if (player.getCut() != 0){
                         cutTree(i);
                     }
                 }
@@ -172,12 +159,13 @@ public class Game{
 
 
 
-
-
-
-
             for (int i = 0; i < wolfes.length; i++) {
                 for (int j = 0; j < stones.length; j++) {
+
+
+                    if (CollisionDetector.elementIsUp(wolfes[i], player)) {
+                        killedInAction = true;
+                    }
 
                     if (CollisionDetector.elementIsUp(wolfes[i], stones[j])) {
                         wolfes[i].setabletoMoveUp(false);
@@ -200,6 +188,14 @@ public class Game{
             for (int i = 0; i < wolfes.length; i++) {
                 for (int j = 0; j < trees.length; j++) {
 
+                    if (CollisionDetector.elementIsUp(wolfes[i], player)) {
+                        killedInAction = true;
+                    }
+
+                    if(trees[j] == null){
+                        continue;
+                    }
+
                     if (CollisionDetector.elementIsUp(wolfes[i], trees[j])) {
                         wolfes[i].setabletoMoveUp(false);
                     }
@@ -217,19 +213,47 @@ public class Game{
                     }
                 }
             }
-
-
-
-
-
-
-
-
-
-
         }
-        text.setText("YOU WIN!!!!!!!!!! " + score + " points");
+
+
+        if (killedInAction){
+            gameOver();
+        }else {
+            gameWin();
+        }
     }
+
+    public void gameWin() throws InterruptedException{
+        Picture picture = new Picture(PADDING, PADDING, PREFIX + "winner.png");
+        picture.draw();
+
+        text1 = new Text(350, 2 * PADDING + cellQtyY * cellSize, "YOU WON! PRESS ENTER TO RESTART");
+        text1.draw();
+
+        while (!MyKeyboard.start){
+            Thread.sleep(10);
+        }
+        text.delete();
+        text1.delete();
+        Main.main(new String[0]);
+    }
+
+
+    public void gameOver() throws InterruptedException {
+        Picture picture1 = new Picture(PADDING , PADDING , PREFIX + "gameover.png");
+        picture1.draw();
+
+        text1 = new Text(350, 2 * PADDING + cellQtyY * cellSize, "GAME OVER! PRESS ENTER TO RESTART");
+        text1.draw();
+        while (!MyKeyboard.start){
+            Thread.sleep(10);
+        }
+        text.delete();
+        text1.delete();
+        Main.main(new String[0]);
+    }
+
+
 
     public void cutTree(int i){
         trees[i].cutTree();
@@ -237,19 +261,17 @@ public class Game{
         treeNumb--;
         score += 10;
         text.setText("Score: " + score);
+        player.setCut(0);
     }
 
-
-    public static int getSPEED() {
-        return SPEED;
-    }
 
     public void moveAllWolfes() throws InterruptedException {
         
-        for (int i = 0; i < wolfes.length; i++) {
-            wolfes[i].move();
+        for (Wolf c:wolfes) {
+
+            killedInAction = CollisionDetector.hasCollided(player, c);
+            c.move();
         }
     }
-
 
 }
