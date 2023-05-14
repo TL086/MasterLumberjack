@@ -4,6 +4,8 @@ import gameobjects.Player;
 import org.academiadecodigo.simplegraphics.keyboard.*;
 
 
+
+
 import java.security.Key;
 
 public class MyKeyboard implements KeyboardHandler {
@@ -11,6 +13,10 @@ public class MyKeyboard implements KeyboardHandler {
 
     public Keyboard keyboard;
     public Player player;
+    public Player player1;
+    public static boolean startON=false;
+
+
 
 
     public void setPlayer(Player player) {
@@ -49,7 +55,10 @@ public class MyKeyboard implements KeyboardHandler {
 
 
         switch (keyboardEvent.getKey()) {
+
             case KeyboardEvent.KEY_SPACE:
+                setStartOn();
+
                 player.axlStroke();
                 break;
             case KeyboardEvent.KEY_LEFT:
@@ -79,4 +88,13 @@ public class MyKeyboard implements KeyboardHandler {
 
         }
     }
+
+
+    public void setStartOn() {
+        startON = true;
+    }
+
+
+
+
 }
