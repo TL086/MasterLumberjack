@@ -3,7 +3,7 @@ package gameobjects;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import utils.CollisionDetector;
 
-public class Player implements Collidable {
+public class Player implements Collidable, Movable{
 
     private Picture picture;
 
@@ -14,7 +14,7 @@ public class Player implements Collidable {
 
     private int spiriteCut=1;
 
-    private String lastmove;
+    private String lastmove = "down";
     private Tree tree;
     private boolean abletoMoveUp = true;
     private boolean abletoMoveDown = true;
@@ -34,21 +34,15 @@ public class Player implements Collidable {
         if(spiriteNumb==1) {
             picture.load("resources/walkUp.png");
             spiriteNumb++;
-            lastmove = "up";
-        }
-        else if (spiriteNumb==2) {
+        }else if(spiriteNumb==2) {
             picture.load("resources/walkUp1.png");
             spiriteNumb++;
-            lastmove = "up";
-
-        } else if(spiriteNumb==3) {
+        }else if(spiriteNumb==3) {
             picture.load("resources/walkUp.png");
             spiriteNumb++;
-            lastmove = "up";
         }else {
             picture.load("resources/walkUp2.png");
             spiriteNumb=1;
-            lastmove = "up";
         }
 
         if (!abletoMoveUp){
@@ -61,6 +55,7 @@ public class Player implements Collidable {
         }
 
         picture.translate(0, -SPEED);
+        lastmove = "up";
         resetCut();
 
     }
@@ -70,23 +65,18 @@ public class Player implements Collidable {
         if(spiriteNumb==1) {
             picture.load("resources/walkLeft.png");
             spiriteNumb++;
-            lastmove = "left";
-
-        }else if (spiriteNumb==2) {
+        }else if(spiriteNumb==2) {
             picture.load("resources/walkLeft1.png");
             spiriteNumb++;
-            lastmove = "left";
         }else if(spiriteNumb==3){
             picture.load("resources/walkLeft.png");
             spiriteNumb++;
-            lastmove = "left";
         }else {
             picture.load("resources/walkLeft2.png");
             spiriteNumb=1;
-            lastmove = "left";
         }
 
-        if (!abletoMoveLeft){
+        if(!abletoMoveLeft){
             allowAllMoves();
             return;
         }
@@ -95,6 +85,7 @@ public class Player implements Collidable {
             return;
         }
         picture.translate(-SPEED,0);
+        lastmove = "left";
         resetCut();
 
 
@@ -105,34 +96,28 @@ public class Player implements Collidable {
         if(spiriteNumb==1) {
             picture.load("resources/StandStill.png");
             spiriteNumb++;
-            lastmove = "down";
-
-        }else if (spiriteNumb==2) {
+        }else if(spiriteNumb==2) {
             picture.load("resources/walkDown1.png");
             spiriteNumb++;
-            lastmove = "down";
-
         }else if(spiriteNumb==3){
             picture.load("resources/StandStill.png");
             spiriteNumb++;
-            lastmove = "down";
-
         }else {
             picture.load("resources/walkDown2.png");
             spiriteNumb=1;
-            lastmove = "down";
         }
 
-        if (!abletoMoveDown){
+        if(!abletoMoveDown){
             allowAllMoves();
             return;
         }
 
-        if(picture.getY()>=580){
+        if(picture.getY()>=570){
             return;
         }
 
         picture.translate(0,SPEED);
+        lastmove = "down";
         resetCut();
 
     }
@@ -142,39 +127,36 @@ public class Player implements Collidable {
         if(spiriteNumb==1) {
             picture.load("resources/walkRight.png");
             spiriteNumb++;
-            lastmove = "right";
-
-        }else if (spiriteNumb==2) {
+        }else if(spiriteNumb==2) {
             picture.load("resources/walkRight1.png");
             spiriteNumb++;
-            lastmove = "right";
         }else if(spiriteNumb==3){
             picture.load("resources/walkRight.png");
             spiriteNumb++;
-            lastmove = "right";
         }else{
             picture.load("resources/walkRight2.png");
             spiriteNumb=1;
-            lastmove = "right";
         }
 
-        if (!abletoMoveRight){
+        if(!abletoMoveRight){
             allowAllMoves();
             return;
         }
 
-        if(picture.getX()>=580){
+        if(picture.getX()>=870){
             return;
         }
 
         picture.translate(SPEED,0);
+        lastmove = "right";
         resetCut();
-
     }
 
 
 
     public void axlStroke(){
+
+
         incCut();
         switch (lastmove) {
             case "right":
@@ -213,6 +195,7 @@ public class Player implements Collidable {
                     spiriteCut--;
                 }
                 break;
+            default: break;
         }
     }
 

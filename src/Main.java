@@ -5,9 +5,10 @@ public class Main {
 
 
 
-        Game game = new Game(15, 200, 30);
+        Game game = new Game(15, 200, 25, 5, 30);
 
 
+        //game.firstScreen();
         game.init();
         game.start();
 
