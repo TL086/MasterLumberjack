@@ -1,5 +1,4 @@
 package gameobjects;
-
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 
@@ -13,11 +12,9 @@ public class Tree implements Collidable{
         picture.draw();
     }
 
-    public Tree getTree () { return this;}
 
     public void cutTree(){
         picture.delete();
-
     }
 
 

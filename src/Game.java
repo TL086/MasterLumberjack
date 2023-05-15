@@ -12,9 +12,6 @@ public class Game{
     private static int cellSize = 30;
     private static int cellQtyX = 30;
     private static int cellQtyY = 20;
-
-
-
     private Player player;
     private Tree[] trees;
     private Stone[] stones;
@@ -36,9 +33,6 @@ public class Game{
     }
 
 
-
-
-
     public void init() throws InterruptedException {
 
         Picture picture1 = new Picture(PADDING , PADDING , PREFIX + "lumberjack-start.png");
@@ -47,10 +41,12 @@ public class Game{
         MyKeyboard keyboard = new MyKeyboard();
         keyboard.init();
 
+        //Wait for user to start
         while (!MyKeyboard.start){
             Thread.sleep(10);
         }
 
+        // Background image
         Picture picture = new Picture(PADDING , PADDING , PREFIX + "Grass1.png");
         picture.draw();
 
@@ -72,10 +68,9 @@ public class Game{
 
         //Generate player
         player = new Player(PADDING + ((int) (Math.random()*cellQtyX))*cellSize, PADDING + ((int) (Math.random()*cellQtyY))*cellSize, PREFIX + "StandStill.png");
-
-
         keyboard.setPlayer(player);
 
+        //Generate text (SCORE)
         text = new Text(2 * PADDING , 2 * PADDING + cellQtyY * cellSize, "Score: " + score);
         text.draw();
 
@@ -162,8 +157,7 @@ public class Game{
             for (int i = 0; i < wolfes.length; i++) {
                 for (int j = 0; j < stones.length; j++) {
 
-
-                    if (CollisionDetector.elementIsUp(wolfes[i], player)) {
+                    if (CollisionDetector.hasCollided(wolfes[i], player)) {
                         killedInAction = true;
                     }
 
@@ -188,7 +182,7 @@ public class Game{
             for (int i = 0; i < wolfes.length; i++) {
                 for (int j = 0; j < trees.length; j++) {
 
-                    if (CollisionDetector.elementIsUp(wolfes[i], player)) {
+                    if (CollisionDetector.hasCollided(wolfes[i], player)) {
                         killedInAction = true;
                     }
 
@@ -214,7 +208,6 @@ public class Game{
                 }
             }
         }
-
 
         if (killedInAction){
             gameOver();
@@ -253,8 +246,6 @@ public class Game{
         Main.main(new String[0]);
     }
 
-
-
     public void cutTree(int i){
         trees[i].cutTree();
         trees[i] = null;
@@ -264,11 +255,9 @@ public class Game{
         player.setCut(0);
     }
 
-
     public void moveAllWolfes() throws InterruptedException {
         
         for (Wolf c:wolfes) {
-
             killedInAction = CollisionDetector.hasCollided(player, c);
             c.move();
         }

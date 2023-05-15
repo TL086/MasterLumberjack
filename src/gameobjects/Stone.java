@@ -1,6 +1,4 @@
 package gameobjects;
-
-import org.academiadecodigo.simplegraphics.graphics.*;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 

@@ -1,6 +1,6 @@
 package gameobjects;
-
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+import java.util.Random;
 
 
 public class Wolf implements Collidable, Movable {
@@ -12,16 +12,12 @@ public class Wolf implements Collidable, Movable {
     private boolean abletoMoveDown = true;
     private boolean abletoMoveLeft = true;
     private boolean abletoMoveRight = true;
-    //private Random random;
-
 
 
     public Wolf(int x,int y, String resource){
         picture = new Picture(x, y,resource);
         picture.draw();
     }
-
-
 
 
     @Override
@@ -45,14 +41,7 @@ public class Wolf implements Collidable, Movable {
     }
 
 
-
-
-
-
-
-
-
-
+    // wolf direction movements
     public void moveUp() {
 
         if (!abletoMoveUp){
@@ -61,12 +50,9 @@ public class Wolf implements Collidable, Movable {
         }
 
         if(picture.getY()<=10){
-
             return;
         }
-
         picture.translate(0, -SPEED);
-
     }
 
     public void moveLeft() {
@@ -77,12 +63,9 @@ public class Wolf implements Collidable, Movable {
         }
 
         if(picture.getX()<=10){
-
             return;
         }
         picture.translate(-SPEED,0);
-
-
     }
 
     public void moveDown() {
@@ -91,14 +74,10 @@ public class Wolf implements Collidable, Movable {
             allowAllMoves();
             return;
         }
-
         if(picture.getY()>=570){
-
             return;
         }
-
         picture.translate(0,SPEED);
-
     }
 
     public void moveRight() {
@@ -109,15 +88,12 @@ public class Wolf implements Collidable, Movable {
         }
 
         if(picture.getX()>=870){
-
             return;
         }
-
         picture.translate(SPEED,0);
-
     }
 
-
+    // movement setters
     public void setabletoMoveUp(boolean check){
         abletoMoveUp = check;
     }
@@ -138,10 +114,10 @@ public class Wolf implements Collidable, Movable {
         abletoMoveRight = true;
     }
 
+    // wolf movement
     public void move() throws InterruptedException {
 
-        int direction = (int) (Math.random() * 4);
-
+        int direction = new Random().nextInt(4);
 
         switch (direction) {
             case 0:
@@ -160,6 +136,7 @@ public class Wolf implements Collidable, Movable {
                 break;
         }
     }
+
 
 
 }

@@ -1,26 +1,19 @@
 package utils;
-
 import gameobjects.Player;
 import org.academiadecodigo.simplegraphics.keyboard.*;
 
 
 
-
-import java.security.Key;
-
 public class MyKeyboard implements KeyboardHandler {
-
 
     public Keyboard keyboard;
     public Player player;
     public static boolean start = false;
 
 
-
     public void setPlayer(Player player) {
         this.player = player;
     }
-
 
 
     public void init() {
@@ -57,7 +50,6 @@ public class MyKeyboard implements KeyboardHandler {
 
         int key =  KeyboardEvent.KEY_ENTER;
 
-
             KeyboardEvent event1 = new KeyboardEvent();
 
             event1.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
@@ -67,7 +59,6 @@ public class MyKeyboard implements KeyboardHandler {
             event1.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
             event1.setKey(key);
             keyboard.addEventListener(event1);
-
     }
 
 
@@ -95,8 +86,6 @@ public class MyKeyboard implements KeyboardHandler {
                 player.moveDown();
                 break;
         }
-
-
     }
 
     public void keyReleased(KeyboardEvent keyboardEvent) {
@@ -108,17 +97,7 @@ public class MyKeyboard implements KeyboardHandler {
             case KeyboardEvent.KEY_ENTER:
                 start = false;
                 break;
-
         }
     }
-
-
-
-
-
-
-
-
-
 
 }

@@ -1,19 +1,13 @@
 package gameobjects;
-
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 
 public class Player implements Collidable, Movable{
 
     private Picture picture;
-
     private final int SPEED = 30;
-
-
     private int spiriteNumb=1;
-
     private int spiriteCut=1;
-
     private String lastmove = "down";
     private boolean abletoMoveUp = true;
     private boolean abletoMoveDown = true;
@@ -28,6 +22,7 @@ public class Player implements Collidable, Movable{
     }
 
 
+    //Player movements
     public void moveUp(){
 
         if(spiriteNumb==1) {
@@ -58,7 +53,6 @@ public class Player implements Collidable, Movable{
         picture.translate(0, -SPEED);
 
         resetCut();
-
     }
 
     public void moveLeft(){
@@ -90,8 +84,6 @@ public class Player implements Collidable, Movable{
         picture.translate(-SPEED,0);
 
         resetCut();
-
-
     }
 
     public void moveDown(){
@@ -205,11 +197,8 @@ public class Player implements Collidable, Movable{
                     spiriteCut--;
                 }
                 break;
-
-
         }
     }
-
 
 
     public int getCut (){
@@ -224,10 +213,6 @@ public class Player implements Collidable, Movable{
     public void resetCut (){
         cut = 0;
     }
-
-
-
-
 
     public void setabletoMoveUp(boolean check){
         abletoMoveUp = check;
@@ -269,9 +254,6 @@ public class Player implements Collidable, Movable{
     public int getHeight() {
         return picture.getHeight();
     }
-
-
-
 
 
 }
